@@ -20,9 +20,8 @@ def filter_with_knee_point(df):
 def density_clustering(df, bins=10, debug=False):
 
     # Use static sized bins over the whole range
-    bins = np.linspace(-2, 2, bins + 1)
+    #bins = np.linspace(-2, 2, bins + 1)      # Non-dynamic clustering, seems to give worse results.
     df['bin'] = pd.cut(df['deviation'], bins)
-    # df['bin'] = pd.cut(df['deviation'], bins)
     hist = df['bin'].value_counts().sort_index()
 
     if debug: print('hist', hist.values)
@@ -123,6 +122,10 @@ def search_cluster(df_full, df_cluster_and_normal, df_cluster, attributes, C, th
 
 
 def squeeze(df, attributes, delta_threshold=0.9, debug=False):
+    
+    # Account for predict = 0
+    df['predict'] = (df['predict'] + df['real']) / 2
+    
     # Compute the deviation scores (f - v / f, while accounting for f=0)
     df['deviation'] = 2 * (df['predict'] - df['real']).divide(df['predict'] + df['real']).fillna(0.0)
     
