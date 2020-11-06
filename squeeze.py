@@ -123,8 +123,9 @@ def search_cluster(df_full, df_cluster_and_normal, df_cluster, attributes, C, th
 
 def squeeze(df, attributes, delta_threshold=0.9, debug=False):
     
+    # This addition should be incorrect since it is already accounted for in the definiton of GPS.
     # Account for predict = 0
-    df['predict'] = (df['predict'] + df['real']) / 2
+    # df['predict'] = (df['predict'] + df['real']) / 2
     
     # Compute the deviation scores (f - v / f, while accounting for f=0)
     df['deviation'] = 2 * (df['predict'] - df['real']).divide(df['predict'] + df['real']).fillna(0.0)
