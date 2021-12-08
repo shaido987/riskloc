@@ -9,11 +9,13 @@ def adtributor(df, dimensions, Teep=0.1, Tep=0.67, k=3):
     df['ep'] = (df['real'] - df['predict']) / (A - F)
 
     # For each element, compute the surprise.
-    p = df['predict'] / F
-    q = df['real'] / A
-    p_term = 0.5 * p * np.log(2 * p / (p + q))
-    q_term = 0.5 * q * np.log(2 * q / (p + q))
-    df['surprise'] = (p_term + q_term).combine_first(p_term).combine_first(q_term).fillna(0.0)
+    # Ignore any divide by zero.
+    with np.errstate(divide='ignore'):
+        p = df['predict'] / F
+        q = df['real'] / A
+        p_term = 0.5 * p * np.log(2 * p / (p + q))
+        q_term = 0.5 * q * np.log(2 * q / (p + q))
+        df['surprise'] = (p_term + q_term).combine_first(p_term).combine_first(q_term).fillna(0.0)
 
     candidate_set = []
     for d in dimensions:
@@ -48,11 +50,13 @@ def adtributor_new(df, dimensions, Teep=0.1, Tep=0.67, k=3):
     elements['ep'] = (elements['real'] - elements['predict']) / (A - F)
 
     # For each element, compute the surprise.
-    p = elements['predict'] / F
-    q = elements['real'] / A
-    p_term = 0.5 * p * np.log(2 * p / (p + q))
-    q_term = 0.5 * q * np.log(2 * q / (p + q))
-    elements['surprise'] = (p_term + q_term).combine_first(p_term).combine_first(q_term).fillna(0.0)
+    # Ignore any divide by zero.
+    with np.errstate(divide='ignore'):
+        p = elements['predict'] / F
+        q = elements['real'] / A
+        p_term = 0.5 * p * np.log(2 * p / (p + q))
+        q_term = 0.5 * q * np.log(2 * q / (p + q))
+        elements['surprise'] = (p_term + q_term).combine_first(p_term).combine_first(q_term).fillna(0.0)
 
     candidate_set = []
     for d in dimensions:
