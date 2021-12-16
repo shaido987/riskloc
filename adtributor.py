@@ -13,10 +13,10 @@ def adtributor(df, dimensions, Teep=0.1, Tep=0.67, k=3):
     with np.errstate(divide='ignore'):
         p = df['predict'] / F
         q = df['real'] / A
-        p_term = 0.5 * p * np.log(2 * p / (p + q))
-        q_term = 0.5 * q * np.log(2 * q / (p + q))
-        df['surprise'] = (p_term + q_term).combine_first(p_term).combine_first(q_term).fillna(0.0)
-
+        p_term = np.nan_to_num(p * np.log(2 * p / (p + q)))
+        q_term = np.nan_to_num(q * np.log(2 * q / (p + q)))
+        df['surprise'] = 0.5 * (p_term + q_term)
+        
     candidate_set = []
     for d in dimensions:
         elements = df.groupby(d).sum()
