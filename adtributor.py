@@ -56,7 +56,7 @@ def adtributor_new(df, dimensions, Teep=0.1, Tep=0.67, k=3):
         q = elements['real'] / A
         p_term = np.nan_to_num(p * np.log(2 * p / (p + q)))
         q_term = np.nan_to_num(q * np.log(2 * q / (p + q)))
-        df['surprise'] = 0.5 * (p_term + q_term)
+        elements['surprise'] = 0.5 * (p_term + q_term)
 
     candidate_set = []
     for d in dimensions:
