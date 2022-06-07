@@ -2,6 +2,8 @@
 Code for the paper RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk ([link](https://arxiv.org/abs/2205.10004)).  
 Contains the implementation of RiskLoc and all baseline multi-dimensional root cause localization methods.
 
+Implemented algorithms: RiskLoc, AutoRoot, [Squeeze](https://github.com/NetManAIOps/Squeeze), HotSpot, and Adtributor (normal and recursive).
+
 ## Requirements
 - pandas
 - numpy
@@ -13,7 +15,7 @@ Contains the implementation of RiskLoc and all baseline multi-dimensional root c
 
 To run, use the `run.py` file. There are a couple of options, either to use a single file or to run all files in a directory (including all subdirectories).
 
-Example of running a single file using riskloc in debug mode:
+Example of running a single file using RiskLoc in debug mode:
 ```
 python run.py riskloc --run-path /data/B0/B_cuboid_layer_1_n_ele_1/1450653900.csv --debug
 ```
@@ -58,7 +60,7 @@ optional arguments:
 ```
 The code for Squeeze is adapted from the recently released code from the original publication: https://github.com/NetManAIOps/Squeeze.
 
-To see the algorithm specific arguments run: `python run.py 'algorithm' --help`. For example, for RiskLoc: 
+To see the algorithm-specific arguments run: `python run.py 'algorithm' --help`. For example, for RiskLoc: 
 ```
 $ python run.py riskloc --help
 usage: run.py riskloc [-h] [--data-root DATA_ROOT] [--run-path RUN_PATH] [--derived [DERIVED]] [--n-threads N_THREADS] [--output-suffix OUTPUT_SUFFIX] [--debug [DEBUG]] [--risk-threshold RISK_THRESHOLD] [--ep-prop-threshold EP_PROP_THRESHOLD]
@@ -78,7 +80,7 @@ optional arguments:
   --prune-elements [PRUNE_ELEMENTS]           use element pruning (True/False)
 ```
 
-The `risk-threshold` and `pep-threshold` arguments are specific for the RiskLoc while the rest are shared by all algorithms. To see the algorithm specific arguments for other algorithms simply run them with the `--help` flag or check the code in `run.py`.
+The `risk-threshold` and `pep-threshold` arguments are specific for the RiskLoc while the rest are shared by all algorithms. To see the algorithm-specific arguments for other algorithms simply run them with the `--help` flag or check the code in `run.py`.
 
 ## Datasets
 The semi-synthetic datasets can be downloaded from: https://github.com/NetManAIOps/Squeeze.
@@ -99,7 +101,7 @@ H dataset:
 python generate_dataset.py --num 100 --dataset-name H --seed 123 --dims 10 5 250 20 8 12
 ```
 
-In addition, new, intersting datasets can be created for using `generate_dataset.py` for extended emperical verification and research purposes. Supported input argments can be found at the beginning of the `generate_dataset.py` file or using the `--help` flag. 
+In addition, new, interesting datasets can be created using `generate_dataset.py` for extended empirical verification and research purposes. Supported input arguments can be found at the beginning of the `generate_dataset.py` file or using the `--help` flag. 
 
 ## Citation
 ```
