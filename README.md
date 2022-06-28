@@ -1,8 +1,7 @@
 # RiskLoc
-Code for the paper RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk ([link](https://arxiv.org/abs/2205.10004)).  
-Contains the implementation of RiskLoc and all baseline multi-dimensional root cause localization methods.
+Code for the paper [RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk](https://arxiv.org/abs/2205.10004). This repository contains the implementation of RiskLoc and all baseline multi-dimensional root cause localization methods as well as code to generate synthetic data as described in the paper.
 
-Implemented algorithms: RiskLoc, AutoRoot, [Squeeze](https://github.com/NetManAIOps/Squeeze), HotSpot, and Adtributor (normal and recursive).
+Implemented algorithms: RiskLoc, AutoRoot, Squeeze, HotSpot, and Adtributor (normal and recursive).
 
 ## Requirements
 - pandas
