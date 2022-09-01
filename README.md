@@ -1,7 +1,15 @@
 # RiskLoc
-Code for the paper [RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk](https://arxiv.org/abs/2205.10004). This repository contains the implementation of RiskLoc and all baseline multi-dimensional root cause localization methods as well as code to generate synthetic data as described in the paper.
+This repository contains code for the paper [RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk](https://arxiv.org/abs/2205.10004), both the implementation of RiskLoc and all baseline multi-dimensional root cause localization methods in the paper, as well as the code to generate synthetic datasets as described in the paper.
 
-Implemented algorithms: RiskLoc, AutoRoot, Squeeze, HotSpot, and Adtributor (normal and recursive).
+**Short problem description:**  
+RiskLoc solves the problem of identifying the root cause of an anomaly occuring in a time series with multi-dimensional attributes. These types of time series can be regarded as aggregations (the total sum in the simplest case) of numerous underlying, more fine-grained, time series.   
+For example, a time series T with 2 dimensions, each with 3 possible values: 
+- d1: [a,b,c],
+- d2: [d,e,f],
+
+is built up of 9 fine-grained time series (2 examples being the time series corresponding to {d1: a, d2: d} and {d1: b, d2: f}). 
+
+The goal is to find the specific dimension and dimensional values (the elements) of the root cause when an error occurs in the fully aggregated time series T. This is a search problem where any combination of dimensions and values are considered, and there can be multiple elements in the fanal root cause set. For the example time series above, one potential root cause set can be {{d1: a, d2: [d,e]}, {d1: b, d2: e}}. Since any combination and any number of elements needs to be considered, the total search space is huge which is the main challenge.
 
 ## Requirements
 - pandas
@@ -37,7 +45,9 @@ python run.py riskloc --n-threads 20
 Changing `riskloc` to any of the supported algorithms will run those instead, see below.
 
 ## Algorithms 
-The supported algorithms are:
+Implemented algorithms: RiskLoc, AutoRoot, Squeeze, HotSpot, and Adtributor (normal and recursive).
+
+They can be run by specifying the algorithm name as the first input parameter to the `run.py` file:
 ```
 $ python run.py --help
 usage: run.py [-h] {riskloc,autoroot,squeeze,old squeeze,hotspot,r_adtributor,adtributor} ...
