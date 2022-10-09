@@ -46,7 +46,7 @@ def root_cause_postprocessing(root_causes, algorithm):
     if algorithm != 'squeeze':
         root_cause_predictions = []
         for rc in root_causes:
-            elems = np.array([d + '=' for d in rc['cuboid']], dtype=object) + np.array(rc['elements'], dtype=object)
+            elems = np.array([str(d) + '=' for d in rc['cuboid']], dtype=object) + np.array(rc['elements']).astype(str)
             root_cause_predictions.extend(['&'.join(e) for e in elems])
     else:
         root_cause_predictions = root_causes
