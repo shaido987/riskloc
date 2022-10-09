@@ -4,7 +4,7 @@ import itertools
 import numpy as np
 import pandas as pd
 from functools import reduce
-from utils.utils import str2bool, limited_number_type
+from utils.argument_parser import str2bool, limited_number_type
 
 parser = argparse.ArgumentParser(description='Generate synthetic dataset.')
 parser.add_argument('--num', required=True, type=int, help='number of instances to generate')
