@@ -1,9 +1,9 @@
-import seaborn as sns
+#import seaborn as sns
 import numpy as np
 from loguru import logger
 from scipy.stats import gaussian_kde
 from scipy.signal import argrelextrema
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from algorithms.squeeze.clustering.cluster import Cluster
 from algorithms.squeeze.squeeze_option import SqueezeOption
 
@@ -87,11 +87,11 @@ class DensityBased1dCluster(Cluster):
             density_array, comparator=lambda x, y: x <= y,
             axis=0, order=order, mode='wrap')[0]
         extreme_max_indices = list(filter(lambda x: density_array[x] > 0, extreme_max_indices))
-        if plot:
-            for idx in extreme_max_indices:
-                plt.axvline(bins[idx], linestyle="-", color="red", label="relmax", alpha=0.5, linewidth=0.8)
-            for idx in extreme_min_indices:
-                plt.axvline(bins[idx], linestyle="--", color="blue", label="relmin", alpha=0.5, linewidth=0.8)
+        # if plot:
+            # for idx in extreme_max_indices:
+                # plt.axvline(bins[idx], linestyle="-", color="red", label="relmax", alpha=0.5, linewidth=0.8)
+            # for idx in extreme_min_indices:
+                # plt.axvline(bins[idx], linestyle="--", color="blue", label="relmin", alpha=0.5, linewidth=0.8)
 
         cluster_list = []
         boundaries = np.asarray([float('-inf')] + [bins[index] for index in extreme_min_indices] + [float('+inf')])
@@ -127,10 +127,10 @@ class DensityBased1dCluster(Cluster):
         else:
             window_size = self.option.cluster_smooth_window_size
         smoothed_density_array = smooth(density_array, window_size)
-        if self.option.debug:
-            fig, ax1 = plt.subplots(figsize=(3.6, 1.8))
-            sns.distplot(array, bins='auto', label="density", hist=True, kde=False, norm_hist=True, ax=ax1)
-            ax1.set_ylim([0, None])
+        # if self.option.debug:
+            # fig, ax1 = plt.subplots(figsize=(3.6, 1.8))
+            # sns.distplot(array, bins='auto', label="density", hist=True, kde=False, norm_hist=True, ax=ax1)
+            # ax1.set_ylim([0, None])
 
         clusters = self._cluster(array, smoothed_density_array, bins, plot=self.option.debug)
         if self.option.debug:
