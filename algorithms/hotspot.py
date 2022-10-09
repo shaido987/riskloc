@@ -222,10 +222,13 @@ def hotspot(df, dimensions, pt=0.67, m=200, scoring='gps', debug=False):
 
     candidate_set = []
     for layer in range(1, len(dimensions) + 1):
-        if debug: print('Layer:', layer)
+        if debug:
+            print('Layer:', layer)
+
         cuboids = [list(c) for c in combinations(dimensions, layer)]
         for cuboid in cuboids:
-            if debug: print('Cuboid:', cuboid)
+            if debug:
+                print('Cuboid:', cuboid)
 
             elements = get_unqiue_elements(df, cuboid)
             # if debug: print('Elements:', elements)
@@ -235,7 +238,8 @@ def hotspot(df, dimensions, pt=0.67, m=200, scoring='gps', debug=False):
                 # if debug: print('Filtered elements:', elements)
 
             selected_set, score = MCTS(df, elements, cuboid, v, f, pt, m, scoring)
-            if debug: print('Best subset:', selected_set, 'score', score)
+            if debug:
+                print('Best subset:', selected_set, 'score', score)
 
             candidate = {
                 'layer': layer,

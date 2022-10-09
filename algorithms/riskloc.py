@@ -119,7 +119,7 @@ def search_anomaly(df, attributes, pruned_elements, risk_threshold=0.5, adj_ep_t
             eps = eps.loc[(eps['partition'] > 0) & (eps['ep'] > best_root_cause['ep_score'])]
             eps = eps['ep'].sort_values(ascending=False)
 
-            for e, ep_score in eps.iteritems():
+            for e, ep_score in eps.items():
                 element = (e,) if layer == 1 else e
 
                 mask = get_element_mask(df_c, cuboid, element)
