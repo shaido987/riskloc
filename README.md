@@ -116,6 +116,8 @@ python generate_dataset.py --num 100 --dataset-name H --seed 123 --dims 10 5 250
 In addition, new, interesting datasets can be created using `generate_dataset.py` for extended empirical verification and research purposes. Supported input arguments can be found at the beginning of the `generate_dataset.py` file or using the `--help` flag. 
 
 ## Citation
+If you find this code useful, please cite the following paper:
+
 ```
 @article{riskloc,
   title={RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk},
