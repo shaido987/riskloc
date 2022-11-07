@@ -1,5 +1,5 @@
 # RiskLoc
-This repository contains code for the paper [RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk](https://arxiv.org/abs/2205.10004), both the implementation of RiskLoc and all baseline multi-dimensional root cause localization methods in the paper, as well as the code to generate synthetic datasets as described in the paper.
+This repository contains code for the paper [RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk](https://arxiv.org/abs/2205.10004). Both the implementation of RiskLoc itself and all baseline multi-dimensional root cause localization methods in the paper are included, as well as the code to generate synthetic datasets as described in the paper.
 
 ![architecture](https://user-images.githubusercontent.com/1130029/187874813-0e7f66e1-fe0e-4fcf-b55a-e347b4227a0d.png)
 
