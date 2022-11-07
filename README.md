@@ -6,13 +6,14 @@ This repository contains code for the paper [RiskLoc: Localization of Multi-dime
 
 **Short problem description:**  
 RiskLoc solves the problem of identifying the root cause of an anomaly occuring in a time series with multi-dimensional attributes. These types of time series can be regarded as aggregations (the total sum in the simplest case) of numerous underlying, more fine-grained, time series.   
-For example, a time series T with 2 dimensions, each with 3 possible values: 
-- d1: [a,b,c],
-- d2: [d,e,f],
 
-is built up of 9 fine-grained time series (2 examples being the time series corresponding to {d1: a, d2: d} and {d1: b, d2: f}). 
+For example, a time series T with 2 dimensions (d1 and d2), each with 3 possible values: 
+- d1: [a, b, c]
+- d2: [d, e, f]
 
-The goal is to find the specific dimension and dimensional values (the elements) of the root cause when an error occurs in the fully aggregated time series T. This is a search problem where any combination of dimensions and values are considered, and there can be multiple elements in the fanal root cause set. For the example time series above, one potential root cause set can be {{d1: a, d2: [d,e]}, {d1: b, d2: e}}. Since any combination and any number of elements needs to be considered, the total search space is huge which is the main challenge.
+is built up of 9 fine-grained time series (two examples of these are the time series corresponding to {d1: a, d2: d} and {d1: b, d2: f}). 
+
+The goal is to find the specific dimension and dimensional values (the elements) of the root cause when an error occurs in the fully aggregated time series T. This is a search problem where any combination of dimensions and values are considered, and there can be multiple elements in the fanal root cause set. For the example time series above, one potential root cause set can be {{d1: a, d2: [d, e]}, {d1: b, d2: e}}. Since any combination and any number of elements needs to be considered, the total search space is huge which is the main challenge.
 
 ## Requirements
 - pandas
