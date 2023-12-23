@@ -2,3 +2,5 @@
 /shelf/
 /workspace.xml
 /.idea
+/.vscode
+**/__pychache__/
