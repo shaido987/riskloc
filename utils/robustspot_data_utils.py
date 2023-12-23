@@ -20,8 +20,8 @@ def transform_rs_data(data_folder, anomaly, predict_periods=4):
     predict_df = anomaly_raw_data[anomaly_raw_data['min'] == current_time]
     predict_df = predict_df.drop(columns=['min'])
     predict_df.rename(columns={'value': 'value_real', 'cnt': 'cnt_real'}, inplace=True)
-    predict_df['value_predict'] = 0
-    predict_df['cnt_predict'] = 0
+    predict_df['value_predict'] = 0.0
+    predict_df['cnt_predict'] = 0.0
     predict_df.reset_index(inplace=True)
     for predict_df_item in predict_df.itertuples():
         history_df_item = anomaly_raw_data[anomaly_raw_data['min'].isin(history_time_list)]
