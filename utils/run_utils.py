@@ -1,12 +1,14 @@
 import os
-import pandas as pd
 import numpy as np
+import pandas as pd
+from utils.robustspot_data_utils import get_rs_label, read_rs_dataframe
 from algorithms.hotspot import hotspot
 from algorithms.squeeze.squeeze import Squeeze, SqueezeOption
 from algorithms.autoroot import autoroot
 from algorithms.adtributor import adtributor
 from algorithms.riskloc import riskloc
 from algorithms.rev_rec_adtributor import rev_rec_adtributor
+from algorithms.robustspot.robustspot import robustspot
 
 
 def run_method(df, dfs, attributes, algorithm, algorithm_args, derived, debug):
@@ -41,6 +43,8 @@ def run_method(df, dfs, attributes, algorithm, algorithm_args, derived, debug):
             )
         model.run()
         root_causes = model.root_cause_string_list
+    elif algorithm == 'robustspot':
+        root_causes = robustspot(df, attributes, derived=derived, **algorithm_args)
     elif algorithm == "hotspot":
         root_causes = [hotspot(df, attributes, debug=debug, **algorithm_args)]
     elif algorithm == "adtributor":
@@ -52,16 +56,20 @@ def run_method(df, dfs, attributes, algorithm, algorithm_args, derived, debug):
     return root_causes
 
 
-def read_dataframe(directory, file, derived):
+def read_dataframe(directory, file, derived, rs_data):
     """
     Reads a root cause example file.
-    :param directory: str, teh directory with files.
+    :param directory: str, the directory with files.
     :param file: str, the csv file to use (note: without appending .csv).
     :param derived: boolean, if the dataset is a derived measure.
+    :param rs_data: boolean, if RobustSpot data is used (other format).
     :return: pandas dataframe, attributes, if derived: non-merged dataframes (used for squeeze).
     """
     def get_attributes(df):
         return sorted(df.columns.drop(['real', 'predict']).tolist())
+
+    if rs_data:
+        return read_rs_dataframe(directory, file)
 
     if derived:
         file_a = file + '.a.csv'
@@ -81,6 +89,15 @@ def read_dataframe(directory, file, derived):
         df_a = df_b = None
 
     return df, attributes, df_a, df_b
+
+
+def get_label(run_directory, file, rs_data):
+    if rs_data:
+        label = get_rs_label(run_directory, file)
+    else:
+        labels = pd.read_csv(os.path.join(run_directory, 'injection_info.csv'))
+        label = labels.loc[labels['timestamp'] == int(file), 'set'].iloc[0]
+    return label
 
 
 def get_instances(data_root, directory):
@@ -106,7 +123,7 @@ def get_instances(data_root, directory):
         instances = []
         for file in os.listdir(path):
             # ignore the file with labels
-            if os.path.isfile(os.path.join(path, file)) and file != 'injection_info.csv':
+            if os.path.isfile(os.path.join(path, file)) and file not in ['injection_info.csv', 'anomaly.yaml']:
                 instance = (dataset, subdir, file.split(".")[0])
                 instances.append(instance)
 
