@@ -32,10 +32,13 @@ def add_partition(df, cutoff):
     return df
 
 
-def get_cutoff(df, n_remove=5):
+def get_cutoff(df, n_remove=5, relative=False):
     devs = df['deviation'].drop_duplicates()
 
-    # TODO: Ablation test
+    if relative:
+        n_remove = int(math.ceil(len(devs) * n_remove / 100))
+
+    # Ablation test
     # n_remove = 0
 
     min_val = devs.nsmallest(n_remove + 1).max()
@@ -83,7 +86,6 @@ def element_pruning(df, cuboid, pruned_elements):
     return df_c, ['ep', 'ep_z', 'partition']
 
 
-# TODO: TEST (org 3)
 def add_prune_element(eps, adj_ep_threshold, layer, cuboid, pruned_elements, max_layer=1):
     if layer <= max_layer:
         ics = eps.loc[(eps['ep_z'] < adj_ep_threshold) | (eps['partition'] == 0)]
@@ -128,10 +130,10 @@ def search_anomaly(df, attributes, pruned_elements, risk_threshold=0.5, adj_ep_t
                 high_risk_score = high_risk(selection)
                 low_risk_score = low_risk(selection)
 
-                # TODO: Ablation test
+                # Ablation test
                 # high_risk_score = 1.0
 
-                # TODO: Ablation test
+                # Ablation test
                 # low_risk_score = 0.0
 
                 risk_score = high_risk_score - low_risk_score
@@ -162,21 +164,21 @@ def search_anomaly(df, attributes, pruned_elements, risk_threshold=0.5, adj_ep_t
     return None, pruned_elements
 
 
-def riskloc(df, attributes, risk_threshold=0.5, pep_threshold=0.02, derived=False, prune_elements=True,
+def riskloc(df, attributes, risk_threshold=0.5, pep_threshold=0.02, n_remove=5, derived=False, prune_elements=True,
             debug=False):
-    df = add_explanatory_power(df, False)  # TODO: TESTING
+    df = add_explanatory_power(df, derived)
     df = add_deviation_score(df)
 
-    cutoff = get_cutoff(df)
+    cutoff = get_cutoff(df, n_remove, relative=False)
     if debug: print('cutoff:', cutoff)
 
-    # TODO: Ablation test
+    # Ablation test
     # cutoff = -0.2 if cutoff < 0 else 0.2
 
     df = add_partition(df, cutoff)
     df = add_weight(df, cutoff)
 
-    # TODO: Ablation test
+    # Ablation test
     # df['weight'] = 1
 
     # Negate all EP values if the sum if negative for the abnormal part.
