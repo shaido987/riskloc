@@ -1,0 +1,405 @@
+- data: case1_0821_1741394221
+  timestamp: 1566397800
+  cause: {'bitrate':2000,'p2p':1}
+- data: case2_0824_392202648
+  timestamp: 1566644880
+  cause: {'bitrate':1200, 'p2p':1}
+- data: case3_0824_2231886096
+  timestamp: 1566646560
+  cause: {'bitrate':2000, 'p2p':1}
+- data: case4_0824_2185256980
+  timestamp: 1566656280
+  cause: {'bitrate':500, 'p2p':1}
+- data: case5_0824_1500728851
+  timestamp: 1566658020
+  cause: {'bitrate':2000}
+- data: case6_0923_100523075
+  timestamp: 1569184620
+  cause: {'bitrate':2000}
+- data: case7_0923_1394575536
+  timestamp: 1569184620
+  cause: {'bitrate':2000, 'p2p':1}
+- data: case8_0911_global
+  timestamp: 1568199420
+  cause: {'cdn':3, 'bitrate':2000}
+- data: case9_0926_1199512718563
+  timestamp: 1569495720
+  cause: {'bitrate':2000}
+- data: case10_0926_1199512718563
+  timestamp: 1569496080
+  cause: {'bitrate':2000}
+- data: case11_0916_1677942333
+  timestamp: 1568643240
+  cause: {'bitrate':500, 'p2p':1}
+- data: case13_1016_1084106781
+  timestamp: 1571202660
+  cause: {'cdn':5, 'bitrate':500, 'p2p':0}
+- data: case14_1006_2227875499
+  timestamp: 1570334520
+  cause: {'bitrate':2000}
+- data: case15_1005_121873726
+  timestamp: 1570285020
+  cause: {'bitrate':500}
+- data: case16_1005_121873726
+  timestamp: 1570285200
+  cause: {'bitrate':500}
+- data: case17_1005_121873726
+  timestamp: 1570285440
+  cause: {'bitrate':500}
+- data: case18_1005_121873726
+  timestamp: 1570286220
+  cause: {'bitrate':500}
+- data: case19_1005_121873726
+  timestamp: 1570269840
+  cause: {'bitrate':500}
+- data: case20_0921_2227875499
+  timestamp: 1569073740
+  cause: {'cdn':5, 'p2p':0}
+- data: case21_0921_2227875499
+  timestamp: 1569072900
+  cause: {'cdn':3, 'bitrate':2000, 'p2p':0}
+- data: case22_0919_1272997391
+  timestamp: 1568877900
+  cause: {'bitrate':2000}
+- data: case23_0918_2227875499
+  timestamp: 1568820540
+  cause: {'bitrate':1200}
+- data: case25_1022_2227875499
+  timestamp: 1571727960
+  cause: {'bitrate':2000}
+- data: case26_1116_2227875499
+  timestamp: 1573903020
+  cause: {'bitrate':4000}
+- data: case27_1116_1691592144
+  timestamp: 1573911420
+  cause: {'bitrate':4000, 'p2p':1}
+- data: case28_1116_1691592144
+  timestamp: 1573911840
+  cause: {'bitrate':4000, 'p2p':1}
+- data: case29_1119_1691592144
+  timestamp: 1574161200
+  cause: {'cdn':5, 'p2p':0}
+- data: case30_1119_1691592144
+  timestamp: 1574161980
+  cause: {'cdn':5, 'p2p':0}
+- data: case31_1119_1691592144
+  timestamp: 1574170920
+  cause: {'cdn':5, 'p2p':0}
+- data: case32_1124_1860982765
+  timestamp: 1574605500
+  cause: {'cdn':5, 'bitrate':2000, 'p2p':0}
+- data: case33_1206_2227875499
+  timestamp: 1575642180
+  cause: {'bitrate':2500, 'p2p':0}
+- data: case34_1209_367138632
+  timestamp: 1575874260
+  cause: {'bitrate':4000}
+- data: case35_1103_1430972471
+  timestamp: 1572717540
+  cause: {'bitrate':4000}
+- data: case36_1114_679257140
+  timestamp: 1573721520
+  cause: {'cdn':5, 'p2p':0}
+- data: case37_1114_1699667589
+  timestamp: 1573721520
+  cause: {'cdn':5, 'p2p':0}
+- data: case38_1114_1265329459
+  timestamp: 1573721520
+  cause: {'cdn':5, 'p2p':0}
+- data: case39_1116_1354160941
+  timestamp: 1573863840
+  cause: {'cdn':5, 'p2p':0, 'bitrate':2000}
+- data: case40_1116_2399994722
+  timestamp: 1573868640
+  cause: {'cdn':5, 'p2p':0, 'bitrate':2000}
+- data: case41_1128_1394565189
+  timestamp: 1574932560
+  cause: {'cdn':5, 'p2p':0}
+- data: case42_1128_99615733
+  timestamp: 1574938080
+  cause: {'bitrate':500}
+- data: case43_1130_1524418059
+  timestamp: 1575064320
+  cause: {'p2p':0}
+- data: case44_1203_1394565189
+  timestamp: 1575346260
+  cause: {'cdn':5, 'p2p':0}
+- data: case45_1204_1394565191
+  timestamp: 1575431040
+  cause: {'bitrate':1200, 'p2p':0, 'cdn':5}
+- data: case46_1204_2227875499
+  timestamp: 1575474600
+  cause: {'bitrate':4000}
+- data: case47_1205_1423787837
+  timestamp: 1575487560
+  cause: {'bitrate':1200, 'p2p':1}
+- data: case48_1205_2294432
+  timestamp: 1575488040
+  cause: [{'bitrate':500}, {'bitrate':2000}]
+- data: case49_1205_1849387251
+  timestamp: 1575490200
+  cause: {'bitrate':4000, 'p2p':1}
+- data: case50_0215_367138632
+  timestamp: 1581743580
+  cause: {'bitrate':4500}
+- data: case51_0215_367138632
+  timestamp: 1581743580
+  cause: {'bitrate':4500}
+- data: case52_0215_367138632
+  timestamp: 1581747900
+  cause: {'bitrate':2500}
+- data: case53_0215_367138632
+  timestamp: 1581751200
+  cause: {'bitrate':4500}
+- data: case55_0215_1861606916
+  timestamp: 1581771840
+  cause: {'cdn':7, 'p2p':0}
+- data: case56_0216_367138632
+  timestamp: 1581837420
+  cause: [{'bitrate':500}, {'bitrate':2500}]
+- data: case57_0217_1861508076
+  timestamp: 1581936420
+  cause: {'bitrate':4500}
+- data: case58_0218_1272997391
+  timestamp: 1582007340
+  cause: {'isp':'联通', 'cdn':5, 'bitrate':2500}
+- data: case59_0225_2272316519
+  timestamp: 1582611300
+  cause: {'bitrate':500}
+- data: case60_0302_1050502887
+  timestamp: 1583140200
+  cause: {'cdn':3, 'bitrate':500, 'p2p':0}
+- data: case63_0308_170903641
+  timestamp: 1583636820
+  cause: {'bitrate':2500}
+- data: case64_0317_1116857
+  timestamp: 1584381180
+  cause: {'bitrate':0}
+- data: case65_0316_2185256980
+  timestamp: 1584369420
+  cause: [{'bitrate':500}, {'bitrate':2500}]
+- data: case66_0318_1423787827
+  timestamp: 1584480120
+  cause: {'p2p':1, 'bitrate':4000}
+- data: case69_0320_2276840736
+  timestamp: 1584662400
+  cause: [{'cdn':5, 'p2p':0, 'bitrate':500}, {'cdn':5, 'p2p':0, 'bitrate':2500}]
+- data: case70_0324_1199512718563
+  timestamp: 1585053720
+  cause: {'bitrate':2500}
+- data: case71_0324_1714649353
+  timestamp: 1585008660
+  cause: {'bitrate':4500}
+- data: case72_0324_1714649353
+  timestamp: 1585009440
+  cause: [{'bitrate':4500}, {'bitrate':2500}]
+- data: case73_0324_1714649353
+  timestamp: 1585010460
+  cause: {'bitrate':2500}
+- data: case74_0324_1714649353
+  timestamp: 1585011780
+  cause: {'bitrate':2500}
+- data: case75_0324_1714649353
+  timestamp: 1585012620
+  cause: {'bitrate':2500}
+- data: case76_0324_1714649353
+  timestamp: 1585013400
+  cause: {'bitrate':2500}
+- data: case77_0324_1714649353
+  timestamp: 1585013820
+  cause: {'bitrate':2500}
+- data: case78_0324_1714649353
+  timestamp: 1585017360
+  cause: {'bitrate':4500}
+- data: case79_0420_1108152524
+  timestamp: 1587350340
+  cause: {'bitrate':4500}
+- data: case80_0420_1423787852
+  timestamp: 1587362100
+  cause: {'bitrate':500}
+- data: case81_0420_1524418081
+  timestamp: 1587363060
+  cause: {'bitrate':500, 'device':'C1'}
+- data: case82_0420_1524418081
+  timestamp: 1587363720
+  cause: {'bitrate':500, 'device':'C1'}
+- data: case83_0420_1524418081
+  timestamp: 1587364020
+  cause: {'bitrate':500, 'device':'C1'}
+- data: case84_0420_1524418081
+  timestamp: 1587364260
+  cause: {'bitrate':500, 'device':'C1'}
+- data: case85_0420_1423787852
+  timestamp: 1587338760
+  cause: {'bitrate':500, 'device':'C1'}
+- data: case86_0420_1423787852
+  timestamp: 1587339120
+  cause: {'bitrate':500}
+- data: case87_0420_170903641
+  timestamp: 1587333720
+  cause: [{'bitrate':4500}, {'bitrate':2500}]
+- data: case88_0420_170903641
+  timestamp: 1587332940
+  cause: {'bitrate':2500}
+- data: case89_0420_170903641
+  timestamp: 1587335040
+  cause: {'bitrate':2500}
+- data: case90_0420_170903641
+  timestamp: 1587334140
+  cause: {'bitrate':2500}
+- data: case91_0420_170903641
+  timestamp: 1587330900
+  cause: {'bitrate':4500}
+- data: case92_0420_170903641
+  timestamp: 1587335820
+  cause: {'bitrate':2500}
+- data: case93_0420_170903641
+  timestamp: 1587331500
+  cause: {'bitrate':2500}
+- data: case94_0420_1356299405
+  timestamp: 1587332760
+  cause: [{'bitrate':2500}, {'bitrate':4500}]
+- data: case95_0420_1356299405
+  timestamp: 1587333900
+  cause: {'bitrate':2500}
+- data: case96_0420_2455525840
+  timestamp: 1587368760
+  cause: {'p2p':0, 'cdn':6}
+- data: case97_0409_1199512718563
+  timestamp: 1586433060
+  cause: {'bitrate':4500}
+- data: case98_0409_1199512718563
+  timestamp: 1586435340
+  cause: {'bitrate':4500}
+- data: case99_0413_1703280244
+  timestamp: 1586765700
+  cause: {'bitrate':2500}
+- data: case100_0320_2276840736
+  timestamp: 1584662400
+  cause: {'cdn':5, 'p2p':0}
+- data: case101_0320_1394565204
+  timestamp: 1584662400
+  cause: {'cdn':5, 'p2p':0}
+- data: case102_0320_3200269
+  timestamp: 1584640680
+  cause: {'cdn':7, 'p2p':1}
+- data: case103_0320_1524418085
+  timestamp: 1584634080
+  cause: {'cdn':5, 'p2p':0}
+- data: case104_0320_2217334379
+  timestamp: 1584634080
+  cause: {'p2p':0}
+- data: case105_0320_518969542
+  timestamp: 1584633600
+  cause: {'cdn':5, 'p2p':0}
+- data: case107_0322_1199512718563
+  timestamp: 1584881640
+  cause: {'bitrate':2500}
+- data: case108_0322_1199512718563
+  timestamp: 1584881220
+  cause: {'bitrate':4500}
+- data: 20200530 120238 1067459140
+  timestamp: 1590811140
+  cause: [{'bitrate':4000}, {'bitrate':2000}]
+- data: 20200530 145503 1346609715
+  timestamp: 1590821460
+  cause: {'bitrate':4000}
+- data: 20200530 150338 1346609715
+  timestamp: 1590822000
+  cause: {'bitrate':4000}
+- data: 20200530 150746 1346609715
+  timestamp: 1590822240
+  cause: {'bitrate':4000}
+- data: 20200530 154351 1346609715
+  timestamp: 1590824400
+  cause: {'bitrate':4000}
+- data: 20200530 154544 1346609715
+  timestamp: 1590824520
+  cause: {'bitrate':4000}
+- data: 20200530 202456 20320130
+  timestamp: 1590841260
+  cause: {'bitrate':500}
+- data: 20200531 002804 1608993854
+  timestamp: 1590855840
+  cause: {'bitrate':500, 'device':'adr'}
+- data: 20200531 004208 165415953
+  timestamp: 1590856680
+  cause: {'bitrate':500, 'device':'adr'}
+- data: 20200531 053048 1423782086
+  timestamp: 1590874020
+  cause: {'bitrate':500, 'p2p':1}
+- data: 20200531 071344 65404099
+  timestamp: 1590880200
+  cause: {'p2p':0, 'cdn':5}
+- data: 20200531 205558 1394575543
+  timestamp: 1590929400
+  cause: {'bitrate':500}
+- data: 20200601 124838 1558213087
+  timestamp: 1590986700
+  cause: {'bitrate':4000}
+- data: 20200601 204859 8184919
+  timestamp: 1591015500
+  cause: {'bitrate':2000}
+- data: 20200602 084903 1524439828
+  timestamp: 1591058700
+  cause: {'bitrate':500}
+- data: 20200602 120500 1423782026
+  timestamp: 1591070460
+  cause: {'cdn':7, 'p2p':1}
+- data: 20200602 122937 1560182537
+  timestamp: 1591071960
+  cause: {'bitrate':2000}
+- data: 20200602 131156 1761347612
+  timestamp: 1591074480
+  cause: {'bitrate':500}
+- data: 20200602 145543 1584902534
+  timestamp: 1591080720
+  cause: {'isp':'移动'}
+- data: 20200602 165932 1423782086
+  timestamp: 1591088160
+  cause: {'bitrate':500, 'device':'adr'}
+- data: 20200602 185602 2227875499
+  timestamp: 1591095120
+  cause: {'bitrate':4000}
+- data: 20200602 201441 1591942650
+  timestamp: 1591099860
+  cause: {'bitrate':2000, 'p2p':1}
+- data: 20200603 064301 17767732
+  timestamp: 1591137540
+  cause: {'p2p':1, 'device':'adr'}
+- data: 20200603 080051 1394565188
+  timestamp: 1591142220
+  cause: {'cdn':5}
+- data: 20200603 131605 1394565196
+  timestamp: 1591161120
+  cause: {'bitrate':500, 'device':'adr'}
+- data: 20200603 150855 1121940342
+  timestamp: 1591167900
+  cause: {'cdn':7}
+- data: 20200604 040135 1610847180
+  timestamp: 1591214280
+  cause: {'p2p':0}
+- data: 20200605 005935 1677942333
+  timestamp: 1591289760
+  cause: {'p2p':0, 'bitrate':500, 'cdn':5}
+- data: 20200605 024531 170903641
+  timestamp: 1591296120
+  cause: {'p2p':0, 'bitrate':2000, 'cdn':5}
+- data: 20200605 120903 1191588902
+  timestamp: 1591329900
+  cause: {'cdn':7}
+- data: 20200606 081303 1524418094
+  timestamp: 1591402140
+  cause: {'bitrate':500}
+- data: 2020-08-06+15_09_00
+  timestamp: 1596697740
+  cause: {'p2p':1, 'bitrate':10000}
+- data: 2020-08-06+12_07_00
+  timestamp: 1596686820
+  cause: {'bitrate':500, 'cdn':7}
+- data: 2020-08-07+07_59_00
+  timestamp: 1596758340
+  cause: {'p2p':1, 'cdn':7, 'bitrate':2000}
+- data: 2020-08-07+09_07_00
+  timestamp: 1596762420
+  cause: {'bitrate':2000}
