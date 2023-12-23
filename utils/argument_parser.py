@@ -20,6 +20,8 @@ def get_input_arguments():
                                    help='proportional explanatory power threshold')
     subparser_riskloc.add_argument('--n-remove', type=int, default=5,
                                    help='number of elements to ignore when computing the cutoff point')
+    subparser_riskloc.add_argument('--remove-relative', type=str2bool, nargs='?', default=False, const=True,
+                                   help='if true then n_remove is a percentage value')
     subparser_riskloc.add_argument('--prune-elements', type=str2bool, nargs='?', const=True, default=True,
                                    help='use element pruning (True/False)')
 

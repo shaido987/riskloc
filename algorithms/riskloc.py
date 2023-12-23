@@ -164,12 +164,12 @@ def search_anomaly(df, attributes, pruned_elements, risk_threshold=0.5, adj_ep_t
     return None, pruned_elements
 
 
-def riskloc(df, attributes, risk_threshold=0.5, pep_threshold=0.02, n_remove=5, derived=False, prune_elements=True,
-            debug=False):
+def riskloc(df, attributes, risk_threshold=0.5, pep_threshold=0.02, n_remove=5, remove_relative=False, derived=False, 
+            prune_elements=True, debug=False):
     df = add_explanatory_power(df, derived)
     df = add_deviation_score(df)
 
-    cutoff = get_cutoff(df, n_remove, relative=False)
+    cutoff = get_cutoff(df, n_remove, relative=remove_relative)
     if debug: print('cutoff:', cutoff)
 
     # Ablation test
