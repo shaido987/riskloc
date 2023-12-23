@@ -147,7 +147,7 @@ def result_post_processing(parallel_run_results, algorithm, csv_suffix):
     df_summary['Folder'] = np.where(df_summary['Dataset'] == 'A', A_folder_split, df_summary['Folder'])
 
     df_summary = df_summary.groupby(['Dataset', 'Folder'], as_index=False). \
-        agg({'TP': sum, 'FP': sum, 'FN': sum, 'Time': sum})
+        agg({'TP': 'sum', 'FP': 'sum', 'FN': 'sum', 'Time': 'sum'})
     df_summary = df_summary.sort_values(['Dataset', 'Folder'])
     df_summary['F1-score'] = 2 * df_summary['TP'] / (2 * df_summary['TP'] + df_summary['FP'] + df_summary['FN'])
 

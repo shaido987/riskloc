@@ -12,7 +12,7 @@ def transform_rs_data(data_folder, anomaly, predict_periods=4):
     col_list.remove('cnt')
     anomaly['header'] = col_list
 
-    anomaly_raw_data['value'] = anomaly_raw_data['cnt'] - anomaly_raw_data['value']  # TODO: changed
+    anomaly_raw_data['value'] = anomaly_raw_data['cnt'] - anomaly_raw_data['value']
     anomaly_raw_data['k_real'] = anomaly_raw_data['value'] / anomaly_raw_data['cnt']
 
     current_time = anomaly['timestamp']

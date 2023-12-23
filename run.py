@@ -71,32 +71,7 @@ def run_instance(data_root, dataset_name, sub_directory, file, algorithm, algori
              true positive count, false positive count, false negative count and the run time are also returned.
     """
     run_directory = os.path.join(data_root, dataset_name, sub_directory)
-
-    # TODO
-    # if debug:
     print('Running file:', os.path.join(run_directory, file), ', derived:', derived)
-
-    # TODO: Temp
-    if dataset_name == 'H' and algorithm == 'squeeze':
-        save_path = os.path.join(data_root, 'save_squeeze')
-        completed_files = os.listdir(save_path)
-        completed_files = [file[:-4] for file in completed_files]
-        if file in completed_files:
-            print('file already completed', file)
-            df = pd.read_csv(os.path.join(save_path, file + '.csv'))
-            return dataset_name, sub_directory, file, df.iloc[0]['F1'], df.iloc[0]['TP'], df.iloc[0]['FP'], \
-                   df.iloc[0]['FN'], df.iloc[0]['run_time']
-
-    # TODO: Temp
-    if dataset_name == 'H' and algorithm == 'riskloc-old':
-        save_path = os.path.join(data_root, 'save_riskloc_level_1')
-        completed_files = os.listdir(save_path)
-        completed_files = [file[:-4] for file in completed_files]
-        if file in completed_files:
-            print('file already completed', file)
-            df = pd.read_csv(os.path.join(save_path, file + '.csv'))
-            return dataset_name, sub_directory, file, df.iloc[0]['F1'], df.iloc[0]['TP'], df.iloc[0]['FP'], \
-                   df.iloc[0]['FN'], df.iloc[0]['run_time']
 
     df, attributes, df_a, df_b = read_dataframe(run_directory, file, derived, rs_data)
     start_time = time.time()
@@ -113,12 +88,10 @@ def run_instance(data_root, dataset_name, sub_directory, file, algorithm, algori
     F1 = 2 * TP / (2 * TP + FP + FN)
 
     print('dataset:', dataset_name, 'sub_directory:', sub_directory, 'file:', file, 'label:', label)
-
     print('Run time:', run_time)
     print('TP:', TP, 'FP:', FP, 'FN:', FN)
     print('True labels:     ', true_labels)
     print('Predicted labels:', root_cause_predictions)
-
     return dataset_name, sub_directory, file, F1, TP, FP, FN, run_time
 
 

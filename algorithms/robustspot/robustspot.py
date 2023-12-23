@@ -104,7 +104,6 @@ def robustspot(df, attributes, k, derived, contribution_ability_threshold=0.0, c
     final_root_cause = []
     for index in sorted_index:
         final_root_cause.append(merge_res[index])
-    g_data.final_res.append(final_root_cause)
     g_data.before_df_list = [None] * 7
     g_data.after_df_list = [None] * 7
     g_data.expand_df_list = [None] * 7
