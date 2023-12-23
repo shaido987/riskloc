@@ -3,3 +3,4 @@ pandas
 scipy
 kneed
 loguru
+pyyaml
