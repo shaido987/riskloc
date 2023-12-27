@@ -92,6 +92,13 @@ def read_dataframe(directory, file, derived, rs_data):
 
 
 def get_label(run_directory, file, rs_data):
+    """
+    Obtains the label for an instance.
+    :param directory: str, the directory with the label file.
+    :param file: str, the csv file (instance) to query the label for.
+    :param rs_data: boolean, if RobustSpot data is used (other format).
+    :return: str, the label of the queried instance.
+    """
     if rs_data:
         label = get_rs_label(run_directory, file)
     else:
