@@ -18,6 +18,10 @@ def get_input_arguments():
     subparser_riskloc.add_argument('--risk-threshold', type=float, default=0.5, help='risk threshold')
     subparser_riskloc.add_argument('--pep-threshold', type=float, default=0.02,
                                    help='proportional explanatory power threshold')
+    subparser_riskloc.add_argument('--n-remove', type=int, default=5,
+                                   help='number of elements to ignore when computing the cutoff point')
+    subparser_riskloc.add_argument('--remove-relative', type=str2bool, nargs='?', default=False, const=True,
+                                   help='if true then n_remove is a percentage value')
     subparser_riskloc.add_argument('--prune-elements', type=str2bool, nargs='?', const=True, default=True,
                                    help='use element pruning (True/False)')
 
@@ -25,6 +29,14 @@ def get_input_arguments():
     subparser_autoroot = subparsers.add_parser('autoroot', help='autoroot help')
     subparser_autoroot = add_common_arguments(subparser_autoroot)
     subparser_autoroot.add_argument('--delta-threshold', type=float, default=0.25, help='delta threshold')
+
+    # RobustSpot algorithm specific parameters
+    subparser_robustspot = subparsers.add_parser('robustspot', help='robustspot help')
+    subparser_robustspot = add_common_arguments(subparser_robustspot)
+    subparser_robustspot.add_argument('--k', type=int, default=3, help='maximum number of returned root cause elements')
+    subparser_robustspot.add_argument('--lambda-amplification', type=int, default=100, help='lambda amplification')
+    subparser_robustspot.add_argument('--contribution-ability-threshold', type=float, default=0.0, help='contribution ability threshold')
+    subparser_robustspot.add_argument('--confidence-threshold', type=float, default=0.8, help='confidence threshold')
 
     # Squeeze algorithm specific parameters
     subparser_squeeze = subparsers.add_parser('squeeze', help='squeeze help')
@@ -75,7 +87,7 @@ def add_common_arguments(parser):
                                 must contain data-path as a prefix
                         ''')
     parser.add_argument('--derived', type=str2bool, nargs='?', const=True, default=None,
-                        help='derived dataset (defaults to True for the D dataset and False for others)')
+                        help='derived dataset (defaults to True for the D and RS datasets and False for others)')
     parser.add_argument('--n-threads', type=int, default=10, help='number of threads to run')
     parser.add_argument('--output-suffix', type=str, default='', help='suffix for output csv file')
     parser.add_argument('--debug', type=str2bool, nargs='?', const=True, default=False,
@@ -139,4 +151,3 @@ def str2bool(argument):
         return False
     else:
         raise argparse.ArgumentTypeError('Unsupported value encountered.')
-

@@ -54,7 +54,11 @@ def gps(v, f, selections):
 
     a = np.mean(a)
     b = np.mean(b)
-    c = np.nan_to_num(np.mean(np.abs(non_selection_v - non_selection_f)))
+    if len(non_selection_v):
+        c = np.nan_to_num(np.mean(np.abs(non_selection_v - non_selection_f)))
+    else:
+        c = 0
+        
     score = 1 - ((a + c) / (b + c))
     return score
 

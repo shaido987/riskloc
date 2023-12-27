@@ -1,11 +1,12 @@
 # RiskLoc
 This repository contains code for the paper [RiskLoc: Localization of Multi-dimensional Root Causes by Weighted Risk](https://arxiv.org/abs/2205.10004). Both the implementation of RiskLoc itself and all baseline multi-dimensional root cause localization methods in the paper are included, as well as the code to generate synthetic datasets as described in the paper.
 
-![architecture](https://user-images.githubusercontent.com/1130029/187874813-0e7f66e1-fe0e-4fcf-b55a-e347b4227a0d.png)
-
+<p align="center">
+  <img width="736" alt="architecture" src="https://github.com/shaido987/riskloc/assets/1130029/c9b8d791-ac94-4edc-b70f-8555467b6c2a">
+</p>
 
 **Short problem description:**  
-RiskLoc solves the problem of identifying the root cause of an anomaly occuring in a time series with multi-dimensional attributes. These types of time series can be regarded as aggregations (the total sum in the simplest case) of numerous underlying, more fine-grained, time series.   
+RiskLoc solves the problem of identifying the root cause of an anomaly occurring in a time series with multi-dimensional attributes. These types of time series can be regarded as aggregations (the total sum in the simplest case) of numerous underlying, more fine-grained, time series.   
 
 For example, a time series T with 2 dimensions (d1 and d2), each with 3 possible values: 
 - d1: [a, b, c]
@@ -21,6 +22,7 @@ The goal is to find the specific dimension and dimensional values (the elements)
 - scipy
 - kneed (for squeeze)
 - loguru (for squeeze)
+- pyyaml
 
 ## How to run
 
@@ -49,7 +51,7 @@ python run.py riskloc --n-threads 20
 Changing `riskloc` to any of the supported algorithms will run those instead, see below.
 
 ## Algorithms 
-Implemented algorithms: RiskLoc, AutoRoot, Squeeze, HotSpot, and Adtributor (normal and recursive).
+Implemented algorithms: RiskLoc, AutoRoot, RobustSpot, Squeeze, HotSpot, and Adtributor (normal and recursive).
 
 They can be run by specifying the algorithm name as the first input parameter to the `run.py` file:
 ```
@@ -58,11 +60,12 @@ usage: run.py [-h] {riskloc,autoroot,squeeze,old squeeze,hotspot,r_adtributor,ad
 
 RiskLoc
 
-positional arguments: {riskloc,autoroot,squeeze,old squeeze,hotspot,r_adtributor,adtributor}
+positional arguments: {riskloc,autoroot,robustspot,squeeze,hotspot,r_adtributor,adtributor}
 
                         algorithm specific help
     riskloc             riskloc help
     autoroot            autoroot help
+    robustspot          robustspot help
     squeeze             squeeze help
     hotspot             autoroot help
     r_adtributor        r_adtributor help
@@ -71,31 +74,35 @@ positional arguments: {riskloc,autoroot,squeeze,old squeeze,hotspot,r_adtributor
 optional arguments:
   -h, --help            show this help message and exit
 ```
-The code for Squeeze is adapted from the recently released code from the original publication: https://github.com/NetManAIOps/Squeeze.
+The code for Squeeze is adapted from the released code from the original publication: https://github.com/NetManAIOps/Squeeze.
+The code for RobustSpot is similarly adapted from their recently released code: https://github.com/robustspotproject/RobustSpot.
 
 To see the algorithm-specific arguments run: `python run.py 'algorithm' --help`. For example, for RiskLoc: 
 ```
 $ python run.py riskloc --help
-usage: run.py riskloc [-h] [--data-root DATA_ROOT] [--run-path RUN_PATH] [--derived [DERIVED]] [--n-threads N_THREADS] [--output-suffix OUTPUT_SUFFIX] [--debug [DEBUG]] [--risk-threshold RISK_THRESHOLD] [--ep-prop-threshold EP_PROP_THRESHOLD]
+usage: run.py riskloc [-h] [--data-root DATA_ROOT] [--run-path RUN_PATH] [--derived [DERIVED]] [--n-threads N_THREADS] [--output-suffix OUTPUT_SUFFIX] [--debug [DEBUG]] [--risk-threshold RISK_THRESHOLD] [--pep-threshold PEP_THRESHOLD] [--n-remove N_REMOVE] [--remove-relative [REMOVE_RELATIVE]] [--prune-elements [PRUNE_ELEMENTS]]
 
-optional arguments:
-  -h, --help                                  show this help message and exit
-  --data-root DATA_ROOT                       root directory for all datasets (default ./data/)
-  --run-path RUN_PATH                         directory or file to be run; 
-                                              if a directory, any subdirectories will be considered as well;
-                                	      must contain data-path as a prefix
-  --derived [DERIVED]                         derived dataset (defaults to True for the D dataset and False for others)
-  --n-threads N_THREADS                       number of threads to run
-  --output-suffix OUTPUT_SUFFIX               suffix for output file
-  --debug [DEBUG]                             debug mode
-  --risk-threshold RISK_THRESHOLD             risk threshold
-  --pep-threshold PEP_THRESHOLD               proportional explanatory power threshold
-  --prune-elements [PRUNE_ELEMENTS]           use element pruning (True/False)
+options:
+  -h, --help                           show this help message and exit
+  --data-root DATA_ROOT                root directory for all datasets (default ./data)
+  --run-path RUN_PATH                  directory or file to be run; if a directory, any subdirectories will be considered as well;
+                                       must contain data-path as a prefix
+  --derived [DERIVED]                  derived dataset (defaults to True for the D and RS datasets and False for others)
+  --n-threads N_THREADS                number of threads to run
+  --output-suffix OUTPUT_SUFFIX        suffix for output csv file
+  --debug [DEBUG]                      debug mode
+  --risk-threshold RISK_THRESHOLD      risk threshold
+  --pep-threshold PEP_THRESHOLD        proportional explanatory power threshold
+  --n-remove N_REMOVE                  number of elements to ignore when computing the cutoff point
+  --remove-relative [REMOVE_RELATIVE]  if true then n_remove is a percentage value
+  --prune-elements [PRUNE_ELEMENTS]    use element pruning (True/False)
 ```
 
-The `risk-threshold` and `pep-threshold` arguments are specific for the RiskLoc while the rest are shared by all algorithms. To see the algorithm-specific arguments for other algorithms simply run them with the `--help` flag or check the code in `run.py`.
+The `risk-threshold` and below arguments are specific for the RiskLoc while the rest are shared by all algorithms. To see the algorithm-specific arguments for other algorithms simply run them with the `--help` flag or check the code in `run.py`.
 
 ## Datasets
+The real-world dataset with derived measures from RobustSpot (RS) is already present in the data folder and can be used immediately.
+
 The semi-synthetic datasets can be downloaded from: https://github.com/NetManAIOps/Squeeze.
 To run these, place them within the data/ directory and name them: A, B0, B1, B2, B3, B4, and D, respectively.
 

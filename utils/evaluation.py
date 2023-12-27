@@ -43,13 +43,18 @@ def root_cause_postprocessing(root_causes, algorithm):
             rc['cuboid'] = [rc['dimension']]
 
     # To get strings (added here for uniformity since squeeze returns strings).
-    if algorithm != 'squeeze':
-        root_cause_predictions = []
+    root_cause_predictions = []
+    if algorithm == 'robustspot':
         for rc in root_causes:
-            elems = np.array([str(d) + '=' for d in rc['cuboid']], dtype=object) + np.array(rc['elements']).astype(str)
-            root_cause_predictions.extend(['&'.join(e) for e in elems])
-    else:
+            root_cause_predictions.extend(['&'.join([e[0] + '=' + str(e[1]) for e in c]) for c in rc])
+    elif algorithm == 'squeeze':
         root_cause_predictions = root_causes
+    else:
+        for rc in root_causes:
+            elems = np.array([d + '=' for d in rc['cuboid']], dtype=object) + np.array(rc['elements'], dtype=object)
+            root_cause_predictions.extend(['&'.join(e) for e in elems])
 
+    # Get unique elements and sort each element in order
     root_cause_predictions = np.unique(root_cause_predictions)
+    root_cause_predictions = np.array(['&'.join(sorted(rc.split('&'))) for rc in root_cause_predictions])
     return root_cause_predictions

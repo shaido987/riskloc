@@ -3,7 +3,7 @@ import time
 import pandas as pd
 from multiprocessing import Pool
 from utils.argument_parser import get_input_arguments
-from utils.run_utils import get_instances, read_dataframe, run_method, result_post_processing
+from utils.run_utils import get_instances, read_dataframe, run_method, result_post_processing, get_label
 from utils.evaluation import root_cause_postprocessing, score_root_causes
 
 
@@ -20,12 +20,15 @@ def run_directory(data_root, run_path, algorithm, algorithm_args, derived, n_thr
 
     pool = Pool(n_threads)
     for dataset, sub_directory, file in instances:
+        dataset_name = os.path.basename(dataset)
 
         if derived is None:
-            derived = os.path.basename(dataset) == 'D'
+            derived = dataset_name == 'D' or dataset_name == 'RS'
+        rs_data = dataset_name == 'RS'
 
         pool.apply_async(run_instance,
-                         args=(data_root, dataset, sub_directory, file, algorithm, algorithm_args, derived, debug),
+                         args=(data_root, dataset, sub_directory, file, algorithm, algorithm_args, derived, rs_data,
+                               debug),
                          callback=parallel_callback)
     pool.close()
     pool.join()
@@ -43,12 +46,14 @@ def run_single_file(data_root, run_path, algorithm, algorithm_args, derived):
     file = directory_structure[-1].split('.')[0]
 
     if derived is None:
-        derived = dataset_name == 'D'
+        derived = dataset_name == 'D' or dataset_name == 'RS'
+    rs_data = dataset_name == 'RS'
 
-    run_instance(data_root, dataset_name, sub_directory, file, algorithm, algorithm_args, derived, debug=True)
+    run_instance(data_root, dataset_name, sub_directory, file, algorithm, algorithm_args, derived, rs_data, debug=True)
 
 
-def run_instance(data_root, dataset_name, sub_directory, file, algorithm, algorithm_args, derived=False, debug=False):
+def run_instance(data_root, dataset_name, sub_directory, file, algorithm, algorithm_args, derived=False, rs_data=False,
+                 debug=False):
     """
     Runs a single instance (file) and evaluates the result.
     :param data_root: str, the root directory for all datasets.
@@ -59,6 +64,7 @@ def run_instance(data_root, dataset_name, sub_directory, file, algorithm, algori
     :param algorithm_args: dict, any algorithm specific arguments.
     :param derived: boolean, if the dataset is derived.
            In this case, two files `file`.a.csv and `file`.b.csv. must exist.
+    :param rs_data: boolean, if the RobustSpot data (RS) is used which has another input format.
     :param debug: boolean, if debug mode should be used.
     :return: (str, str, str, float, float, float, float, float), the dataset name, subdirectory and file name
              are all returned for collecting the results when using multiple threads. Moreover, the F1-score,
@@ -67,27 +73,25 @@ def run_instance(data_root, dataset_name, sub_directory, file, algorithm, algori
     run_directory = os.path.join(data_root, dataset_name, sub_directory)
     print('Running file:', os.path.join(run_directory, file), ', derived:', derived)
 
-    df, attributes, df_a, df_b = read_dataframe(run_directory, file, derived)
+    df, attributes, df_a, df_b = read_dataframe(run_directory, file, derived, rs_data)
     start_time = time.time()
+
     root_causes = run_method(df, [df_a, df_b], attributes, algorithm, algorithm_args, derived, debug)
     root_cause_predictions = root_cause_postprocessing(root_causes, algorithm)
     run_time = time.time() - start_time
 
     # Get the label.
-    labels = pd.read_csv(os.path.join(run_directory, 'injection_info.csv'))
-    label = labels.loc[labels['timestamp'] == int(file), 'set'].iloc[0]
+    label = get_label(run_directory, file, rs_data)
 
     # Evaluate the root cause.
     TP, FP, FN, true_labels = score_root_causes(root_cause_predictions, label)
     F1 = 2 * TP / (2 * TP + FP + FN)
 
     print('dataset:', dataset_name, 'sub_directory:', sub_directory, 'file:', file, 'label:', label)
-    if debug or FP > 0 or FN > 0:
-        print('Run time:', run_time)
-        print('TP:', TP, 'FP:', FP, 'FN:', FN)
-        print('True labels:     ', true_labels)
-        print('Predicted labels:', root_cause_predictions)
-
+    print('Run time:', run_time)
+    print('TP:', TP, 'FP:', FP, 'FN:', FN)
+    print('True labels:     ', true_labels)
+    print('Predicted labels:', root_cause_predictions)
     return dataset_name, sub_directory, file, F1, TP, FP, FN, run_time
 
 
