@@ -9,6 +9,7 @@ def transform_rs_data(directory, anomaly, predict_periods=4):
     :param directory: str, the data directory.
     :param anomaly: dict, the anomaly information of the instance.
     :param predict_periods: int, number of periods to use for the forecast (default 4 from original publication).
+    :return pandas dataframe, list of attributes.
     """
     anomaly_raw_data = pd.read_csv(f'{directory}/{anomaly["data"]}.csv')
     col_list = anomaly_raw_data.columns.values.tolist()
