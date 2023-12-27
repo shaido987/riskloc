@@ -87,7 +87,7 @@ def add_common_arguments(parser):
                                 must contain data-path as a prefix
                         ''')
     parser.add_argument('--derived', type=str2bool, nargs='?', const=True, default=None,
-                        help='derived dataset (defaults to True for the D dataset and False for others)')
+                        help='derived dataset (defaults to True for the D and RS datasets and False for others)')
     parser.add_argument('--n-threads', type=int, default=10, help='number of threads to run')
     parser.add_argument('--output-suffix', type=str, default='', help='suffix for output csv file')
     parser.add_argument('--debug', type=str2bool, nargs='?', const=True, default=False,
