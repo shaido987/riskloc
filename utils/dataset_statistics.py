@@ -6,6 +6,12 @@ from utils.robustspot_data_utils import get_rs_label, read_rs_dataframe
 
 
 def set_label(df, label):
+    """
+    Creates a label column for a dataframe following the given label.
+    :param df: pandas dataframe.
+    :param label: str, the label to use.
+    :return pandas dataframe with added label column.
+    """
     labels = label.split(';')
     df['label'] = 'normal'
     for label in labels:
@@ -16,6 +22,13 @@ def set_label(df, label):
 
 
 def analyze_single_B_folder(dataset_path, folder, significance_column='significance'):
+    """
+    Analyze instances in the B_i datasets.
+    :param dataset_path: str, the path to the dataset.
+    :param folder: str, the sub-folder to analyze.
+    :param significance_column: str, the column with anomaly significance values.
+    :return total prediction amount and error for normal leaf elements, significance values, number of considered files.
+    """
     print('folder', folder)
 
     info = os.path.join(dataset_path, folder, 'injection_info.csv')
@@ -24,16 +37,7 @@ def analyze_single_B_folder(dataset_path, folder, significance_column='significa
     all_files = os.listdir(os.path.join(dataset_path, folder))
     case_files = [file for file in all_files if file != 'injection_info.csv' and file != 'truth_prediction.csv']
     num_files = len(case_files)
-
-    # TODO: remove this check
-    for case_file in case_files:
-        df_file = pd.read_csv(os.path.join(dataset_path, folder, case_file))
-        label = df.loc[df['timestamp'] == int(case_file[:-4]), 'set'].iloc[0]
-
-        df_file = set_label(df_file, label)
-        if (df_file.loc[df_file['label'] != 'normal', 'real'] - df_file.loc[df_file['label'] != 'normal', 'predict']).sum() > 0:
-            print('bp')
-
+    
     normal_predict_amount = df['normal_predict_amount'].sum()
     normal_predict_error = df['normal_predict_error'].sum()
     significance_values = df[significance_column].values
@@ -47,6 +51,11 @@ def analyze_single_B_folder(dataset_path, folder, significance_column='significa
 
 
 def analyze_B_data(dataset_path):
+    """
+    Analyzes all B_i datasets.
+    :param dataset_path: str, the path to the dataset.
+    :return total prediction amount and error for normal leaf elements, significance values, number of considered files.
+    """
     normal_predict_amount = 0
     normal_predict_error = 0
     significance_values = []
@@ -64,10 +73,21 @@ def analyze_B_data(dataset_path):
 
 
 def analyze_synthetic_data(dataset_path):
+    """
+    Analyzes the synthetic datasets (S, L, H, or any others created with the generate_dataset.py code.
+    :param dataset_path: str, the path to the dataset.
+    :return total prediction amount and error for normal leaf elements, significance values, number of considered files.
+    """
     return analyze_single_B_folder(dataset_path, "", significance_column='anomaly_significance')
 
 
 def analyze_A_D_data(dataset_path, deep_a):
+    """
+    Analyzes the A (both A and A_star) or the D dataset.
+    :param dataset_path: str, the path to the dataset.
+    :param deep_a: boolean, if true then considers A_star, otherwise A.
+    :return total prediction amount and error for normal leaf elements, significance values, number of considered files.
+    """
     normal_predict_amount = 0
     normal_predict_error = 0
     significance_values = []
@@ -126,6 +146,11 @@ def analyze_A_D_data(dataset_path, deep_a):
 
 
 def analyze_RS_data(dataset_path):
+    """
+    Analyzes the RS dataset.
+    :param dataset_path: str, the path to the dataset.
+    :return total prediction amount and error for normal leaf elements, significance values, number of considered files.
+    """
     normal_predict_amount = 0
     normal_predict_error = 0
     significance_values = []
@@ -152,9 +177,8 @@ def analyze_RS_data(dataset_path):
 
 
 dataset_path = "../data/"
-datasets = ['B0', 'A', 'L', 'D', 'RS']
+datasets = ['B0', 'A', 'L', 'D', 'RS']  # Example of some datasets
 deep_a = False
-
 
 for dataset in datasets:
     print(f"Running dataset {dataset}")
