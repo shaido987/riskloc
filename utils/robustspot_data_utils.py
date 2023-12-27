@@ -3,9 +3,14 @@ import yaml
 import pandas as pd
 
 
-def transform_rs_data(data_folder, anomaly, predict_periods=4):
-    # Adapted from RobustSpot's 'get_predict_df' in predict.py
-    anomaly_raw_data = pd.read_csv(f'{data_folder}/{anomaly["data"]}.csv')
+def transform_rs_data(directory, anomaly, predict_periods=4):
+    """
+    Transforms a raw RobustSpot dataframe to the correct format. Adapted from RobustSpot's 'get_predict_df' in predict.py.
+    :param directory: str, the data directory.
+    :param anomaly: dict, the anomaly information of the instance.
+    :param predict_periods: int, number of periods to use for the forecast (default 4 from original publication).
+    """
+    anomaly_raw_data = pd.read_csv(f'{directory}/{anomaly["data"]}.csv')
     col_list = anomaly_raw_data.columns.values.tolist()
     col_list.remove('min')
     col_list.remove('value')
@@ -23,6 +28,7 @@ def transform_rs_data(data_folder, anomaly, predict_periods=4):
     predict_df['value_predict'] = 0.0
     predict_df['cnt_predict'] = 0.0
     predict_df.reset_index(inplace=True)
+    
     for predict_df_item in predict_df.itertuples():
         history_df_item = anomaly_raw_data[anomaly_raw_data['min'].isin(history_time_list)]
         for header in anomaly['header']:
@@ -34,9 +40,15 @@ def transform_rs_data(data_folder, anomaly, predict_periods=4):
     return predict_df, col_list
 
 
-def read_rs_dataframe(run_directory, file):
-    anomaly = get_rs_anomaly(run_directory, file)
-    df, attributes = transform_rs_data(run_directory, anomaly)
+def read_rs_dataframe(directory, file):
+    """
+    Reads an RobustSpot dataframe from a csv file and transform it to the common data format.
+    :param directory: str, the data directory.
+    :param file: str, the csv file to read.
+    :return: pandas dataframe, attributes, and non-merged dataframes.
+    """
+    anomaly = get_rs_anomaly(directory, file)
+    df, attributes = transform_rs_data(directory, anomaly)
 
     # Keep the same format as the other derived dataset (D)
     df = df.rename(columns={'k_real': 'real', 'k_predict': 'predict', 'value_real': 'real_a',
@@ -53,7 +65,13 @@ def read_rs_dataframe(run_directory, file):
     return df, attributes, df_a, df_b
 
 
-def get_rs_anomaly(run_directory, file):
+def get_rs_anomaly(directory, file):
+    """
+    Obtains the anomaly label for an RobustSpot data instance.
+    :param directory: str, the data directory.
+    :param file: str, the csv file (instance) to query the label for.
+    :return: str, the label of the queried instance.
+    """
     anomaly_config = os.path.join(run_directory, 'anomaly.yaml')
     anomaly_config = open(anomaly_config, mode='r', encoding='utf-8')
     anomaly_info = yaml.load(anomaly_config.read(), Loader=yaml.FullLoader)
@@ -61,8 +79,14 @@ def get_rs_anomaly(run_directory, file):
     return anomaly
 
 
-def get_rs_label(run_directory, file):
-    labels = get_rs_anomaly(run_directory, file)['cause']
+def get_rs_label(directory, file):
+    """
+    Reads the label of an RobustSpot data instance and converts it to the common format.
+    :param directory: str, the data directory.
+    :param file: str, the csv file (instance) to query the label for.
+    :return: str, the label of the queried instance.
+    """
+    labels = get_rs_anomaly(directory, file)['cause']
     if not isinstance(labels, list):
         labels = [labels]
 
