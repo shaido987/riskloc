@@ -91,7 +91,7 @@ def read_dataframe(directory, file, derived, rs_data):
     return df, attributes, df_a, df_b
 
 
-def get_label(run_directory, file, rs_data):
+def get_label(directory, file, rs_data):
     """
     Obtains the label for an instance.
     :param directory: str, the directory with the label file.
@@ -100,9 +100,9 @@ def get_label(run_directory, file, rs_data):
     :return: str, the label of the queried instance.
     """
     if rs_data:
-        label = get_rs_label(run_directory, file)
+        label = get_rs_label(directory, file)
     else:
-        labels = pd.read_csv(os.path.join(run_directory, 'injection_info.csv'))
+        labels = pd.read_csv(os.path.join(directory, 'injection_info.csv'))
         label = labels.loc[labels['timestamp'] == int(file), 'set'].iloc[0]
     return label
 
