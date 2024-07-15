@@ -73,7 +73,7 @@ def get_rs_anomaly(directory, file):
     :param file: str, the csv file (instance) to query the label for.
     :return: str, the label of the queried instance.
     """
-    anomaly_config = os.path.join(run_directory, 'anomaly.yaml')
+    anomaly_config = os.path.join(directory, 'anomaly.yaml')
     anomaly_config = open(anomaly_config, mode='r', encoding='utf-8')
     anomaly_info = yaml.load(anomaly_config.read(), Loader=yaml.FullLoader)
     anomaly = [d for d in anomaly_info if d['data'] == file][0]
